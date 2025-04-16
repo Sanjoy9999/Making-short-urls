@@ -59,7 +59,8 @@ connectToMongoDB()
     });
 
     app.listen(process.env.PORT || 8001, () => {
-      console.log(`Server on port: ${process.env.PORT}`);
+      const port = process.env.PORT || 8001;
+      console.log(`Server running on port: ${port}`);
     });
   })
   .catch((err) => {
