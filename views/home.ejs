@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home page</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <style>
+      body {
+        min-height: 100vh;
+        margin: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        color: #fff;
+        animation: fadeInBg 1.2s ease;
+      }
+      @keyframes fadeInBg {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      h1 {
+        margin-top: 40px;
+        font-size: 2.8rem;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        animation: slideDown 1s cubic-bezier(.68,-0.55,.27,1.55);
+      }
+      @keyframes slideDown {
+        from { transform: translateY(-60px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      .card {
+        background: rgba(255,255,255,0.12);
+        border-radius: 18px;
+        box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+        backdrop-filter: blur(6px);
+        padding: 2rem 2.5rem;
+        margin: 2rem 0;
+        width: 100%;
+        max-width: 420px;
+        animation: fadeInUp 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+      }
+      @keyframes fadeInUp {
+        from { transform: translateY(60px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+      }
+      label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+      }
+      input[type="text"] {
+        width: 100%;
+        padding: 0.7rem 1rem;
+        border-radius: 8px;
+        border: none;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+        background: rgba(255,255,255,0.2);
+        color: #222;
+        transition: box-shadow 0.2s;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      }
+      input[type="text"]:focus {
+        outline: none;
+        box-shadow: 0 0 0 2px #764ba2;
+      }
+      button {
+        background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.7rem 2rem;
+        font-size: 1.1rem;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+        transition: background 0.2s, transform 0.2s;
+      }
+      button:hover {
+        background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+        transform: translateY(-2px) scale(1.04);
+      }
+      .url-result {
+        margin: 1.5rem 0 0.5rem 0;
+        padding: 1rem 1.5rem;
+        background: rgba(255,255,255,0.18);
+        border-radius: 10px;
+        color: #222;
+        font-size: 1.1rem;
+        animation: fadeInUp 1.2s 0.2s backwards;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 2rem;
+        background: rgba(255, 255, 255, 0.508);
+        border-radius: 12px;
+        overflow: hidden;
+        animation: fadeInUp 1.2s 0.3s backwards;
+      }
+      th, td {
+        padding: 0.8rem 1rem;
+        text-align: left;
+        color: #fff;
+      }
+      th {
+        background: rgba(110, 232, 147, 0.35);
+        font-size: 1.05rem;
+      }
+      tr {
+        transition: background 0.2s;
+      }
+      tr:hover {
+        background: rgba(118,75,162,0.18);
+      }
+      @media (max-width: 600px) {
+        .card, table { max-width: 84vw; padding: 1rem; }
+        h1 { font-size: 2rem; }
+        th, td { font-size: 0.95rem; }
+        table, thead, tbody, th, td, tr { display: block; width: 100%; }
+        th, td { box-sizing: border-box; }
+        tr { margin-bottom: 1rem; }
+
+        input[type="text"] {
+          width: 93%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <form action="/logout" method="post" style="position: absolute; top: 20px; right: 30px;">
+      <button type="submit" style="background: #fff; color: #764ba2; border: none; border-radius: 6px; padding: 0.5rem 1.2rem; font-weight: 700; cursor: pointer;">Logout</button>
+    </form>
+    <h1>URL Shortener</h1>
+    <% if (locals.id) { %>
+    <div class="url-result">
+      <strong>URL Generated:</strong> <a href="http://localhost:8001/url/<%= id%>" target="_blank" style="color:#764ba2;text-decoration:underline;">http://localhost:8001/url/<%= id%></a>
+    </div>
+    <% } %>
+    <div class="card">
+      <form method="POST" action="/url">
+        <label>Enter Your Original URL</label>
+        <input type="text" name="url" placeholder="https://example.com" required />
+        <button type="submit">Generate</button>
+      </form>
+    </div>
+    <% if (adminView && urlsByUser) { %>
+      <% urlsByUser.forEach(function(userSection, userIdx) { %>
+        <h2 style="margin-top:2.5rem; color:#ffd700;">User: <%= userSection.user.name %> (<%= userSection.user.email %>)</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>S. No</th>
+              <th>ShortID</th>
+              <th>Redirect</th>
+              <th>Clicks</th>
+              <th>User</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% userSection.urls.forEach(function(url, index) { %>
+              <tr>
+                <td><%= index + 1 %></td>
+                <td>
+                  <% 
+                    let shortUrl;
+                    if (req && req.headers && req.headers.host && !req.headers.host.includes('localhost')) {
+                      // On production, show https://<shortId>
+                      shortUrl = 'https://' + url.shortId;
+                    } else {
+                      // On localhost, show http://localhost:8001/url/<shortId>
+                      shortUrl = 'http://localhost:8001/url/' + url.shortId;
+                    }
+                  %>
+                  <a href="<%= shortUrl %>" target="_blank" style="color:#667eea; text-decoration:underline;">
+                    <%= shortUrl %>
+                  </a>
+                </td>
+                <td><a href="<%= url.redirectURL %>" target="_blank" style="color:#667eea;">Visit</a></td>
+                <td><%= url.visitHistory.length + 0 %></td>
+                <td><%= userSection.user.name %> (<%= userSection.user.email %>)</td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% }) %>
+    <% } else if (locals.urls) { %>
+    <table>
+      <thead>
+        <tr>
+          <th>S. No</th>
+          <th>ShortID</th>
+          <th>Redirect</th>
+          <th>Clicks</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% urls.forEach((url,index) => { %>
+        <tr>
+          <td><%= index + 1 %></td>
+          <td>
+            <% 
+              let shortUrl;
+              if (req && req.headers && req.headers.host && !req.headers.host.includes('localhost')) {
+                // On production, show https://<shortId>
+                shortUrl = 'https://' + url.shortId;
+              } else {
+                // On localhost, show http://localhost:8001/url/<shortId>
+                shortUrl = 'http://localhost:8001/url/' + url.shortId;
+              }
+            %>
+            <a href="<%= shortUrl %>" target="_blank" style="color:#667eea; text-decoration:underline;">
+              <%= shortUrl %>
+            </a>
+          </td>
+          <td><a href="<%= url.redirectURL %>" target="_blank" style="color:#667eea;">Visit</a></td>
+          <td><%= url.visitHistory.length + 0 %></td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+    <% } %>
+  </body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            animation: fadeInBg 1.2s ease;
+        }
+        @keyframes fadeInBg {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        h1 {
+            margin-bottom: 2rem;
+            font-size: 2.4rem;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            animation: slideDown 1s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-60px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        .card {
+            background: rgba(255,255,255,0.12);
+            border-radius: 18px;
+            box-shadow: 0 8px 32px 0 rgba(31,38,135,0.37);
+            backdrop-filter: blur(6px);
+            padding: 2.5rem 2.5rem 2rem 2.5rem;
+            width: 100%;
+            max-width: 400px;
+            animation: fadeInUp 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes fadeInUp {
+            from { transform: translateY(60px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        input[type="text"], input[type="email"], input[type="password"] {
+            width: 97%;
+            padding: 0.7rem 1rem;
+            border-radius: 8px;
+            border: none;
+            margin-bottom: 1.2rem;
+            font-size: 1rem;
+            background: rgba(255,255,255,0.2);
+            color: #222;
+            transition: box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #764ba2;
+        }
+        button {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 0.7rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+            transition: background 0.2s, transform 0.2s;
+        }
+        button:hover {
+            background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-2px) scale(1.04);
+        }
+        .login-link {
+            margin-top: 1.2rem;
+            text-align: center;
+            color: #fff;
+            font-size: 1rem;
+        }
+        .login-link a {
+            color: #ffd700;
+            text-decoration: underline;
+            transition: color 0.2s;
+        }
+        .login-link a:hover {
+            color: #fff;
+        }
+        @media (max-width: 600px) {
+            .card { max-width: 84vw; padding: 1.2rem; }
+            h1 { font-size: 2rem; }
+            form { width: 100%; }
+            label, input, button { font-size: 1rem; }
+            input[type="text"], input[type="email"], input[type="password"] {
+               width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    </form>
+    <h1>Signup</h1>
+    <div class="card">
+        <form action="/user" method="post">
+            <label>Full Name</label>
+            <input type="text" required name="name" placeholder="Enter your full name">
+            <label>Email</label>
+            <input type="email" required name="email" placeholder="Enter your email">
+            <label>Password</label>
+            <input type="password" required name="password" placeholder="Create a password">
+            <button type="submit">Signup</button>
+        </form>
+        <div class="login-link">
+            Already have an account? <a href="/login">Login</a>
+        </div>
+    </div>
+</body>
+</html>

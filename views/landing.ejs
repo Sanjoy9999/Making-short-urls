@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Short URL - Welcome</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            min-height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Montserrat', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            animation: fadeIn 1.2s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.95); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            letter-spacing: 2px;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.18);
+            animation: slideDown 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-60px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            color: #f3f3f3;
+            animation: fadeInText 1.5s 0.3s backwards;
+        }
+        @keyframes fadeInText {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .cta-btn {
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 1rem 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+            transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+            margin: 0 0.5rem;
+            animation: fadeInUp 1.2s 0.5s backwards;
+        }
+        .cta-btn:hover {
+            background: linear-gradient(90deg, #764ba2 0%, #667eea 100%);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+        }
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.18;
+            animation: float 8s infinite ease-in-out;
+            pointer-events: none;
+        }
+        .bubble1 { width: 180px; height: 180px; left: 5vw; top: 10vh; background: #fff; animation-delay: 0s; }
+        .bubble2 { width: 120px; height: 120px; right: 8vw; top: 20vh; background: #ffd700; animation-delay: 2s; }
+        .bubble3 { width: 90px; height: 90px; left: 15vw; bottom: 12vh; background: #764ba2; animation-delay: 4s; }
+        .bubble4 { width: 60px; height: 60px; right: 18vw; bottom: 8vh; background: #667eea; animation-delay: 1.5s; }
+        @keyframes float {
+            0% { transform: translateY(0) scale(1); }
+            50% { transform: translateY(-40px) scale(1.08); }
+            100% { transform: translateY(0) scale(1); }
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 2rem; }
+            p { font-size: 1rem; }
+            .cta-btn { font-size: 1rem; padding: 0.7rem 1.5rem; }
+            .bubble1 { width: 70px; height: 70px; left: 2vw; top: 8vh; }
+            .bubble2 { width: 45px; height: 45px; right: 4vw; top: 18vh; }
+            .bubble3 { width: 30px; height: 30px; left: 10vw; bottom: 8vh; }
+            .bubble4 { width: 20px; height: 20px; right: 10vw; bottom: 4vh; }
+        }
+    </style>
+</head>
+<body>
+    </form>
+    <div class="bubble bubble1"></div>
+    <div class="bubble bubble2"></div>
+    <div class="bubble bubble3"></div>
+    <div class="bubble bubble4"></div>
+    <div class="container">
+        <h1>Welcome to Short URL</h1>
+        <p>Shorten your long links, share them easily, and track their performance. Fast, secure, and free URL shortener for everyone!</p>
+        <a href="/signup"><button class="cta-btn">Get Started</button></a>
+        <a href="/login"><button class="cta-btn">Login</button></a>
+    </div>
+</body>
+</html>
