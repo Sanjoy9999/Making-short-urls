@@ -1,16 +1,33 @@
 const { v4: uuidv4 } = require("uuid");
 const User = require("../models/user.models");
-const { setUser} = require("../service/auth")
+const { setUser } = require("../service/auth")
 
 async function handleUserSignup(req, res) {
-  const { name, email, password } = req.body;
-  await User.create({
-    name,
-    email,
-    password,
-  });
+  try {
+    const { name, email, password } = req.body;
+    
+    // Check if user already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.render("signup", {
+        error: "Email already registered"
+      });
+    }
 
-  return res.redirect("/");
+    // Create new user
+    await User.create({
+      name,
+      email,
+      password,
+    });
+
+    return res.redirect("/login");
+  } catch (error) {
+    console.error("Signup error:", error);
+    return res.render("signup", {
+      error: "Error creating account. Please try again."
+    });
+  }
 }
 
 async function handleUserLogin(req, res) {

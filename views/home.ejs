@@ -141,7 +141,19 @@
     <h1>URL Shortener</h1>
     <% if (locals.id) { %>
     <div class="url-result">
-      <strong>URL Generated:</strong> <a href="http://localhost:8001/url/<%= id%>" target="_blank" style="color:#764ba2;text-decoration:underline;">http://localhost:8001/url/<%= id%></a>
+      <strong>URL Generated:</strong> 
+      <% 
+        let shortUrl;
+        if (req && req.headers && req.headers.host) {
+          // Use the current domain (works for both localhost and production)
+          shortUrl = (req.headers.host.includes('localhost') ? 'http://' : 'https://') + 
+                     req.headers.host + '/url/' + id;
+        } else {
+          // Fallback to the production URL
+          shortUrl = 'https://making-short-urls.vercel.app/url/' + id;
+        }
+      %>
+      <a href="<%= shortUrl %>" target="_blank" style="color:#764ba2;text-decoration:underline;"><%= shortUrl %></a>
     </div>
     <% } %>
     <div class="card">
@@ -171,12 +183,13 @@
                 <td>
                   <% 
                     let shortUrl;
-                    if (req && req.headers && req.headers.host && !req.headers.host.includes('localhost')) {
-                      // On production, show https://<shortId>
-                      shortUrl = 'https://' + url.shortId;
+                    if (req && req.headers && req.headers.host) {
+                      // Use the current domain (works for both localhost and production)
+                      shortUrl = (req.headers.host.includes('localhost') ? 'http://' : 'https://') + 
+                                req.headers.host + '/url/' + url.shortId;
                     } else {
-                      // On localhost, show http://localhost:8001/url/<shortId>
-                      shortUrl = 'http://localhost:8001/url/' + url.shortId;
+                      // Fallback to the production URL
+                      shortUrl = 'https://making-short-urls.vercel.app/url/' + url.shortId;
                     }
                   %>
                   <a href="<%= shortUrl %>" target="_blank" style="color:#667eea; text-decoration:underline;">
@@ -208,12 +221,13 @@
           <td>
             <% 
               let shortUrl;
-              if (req && req.headers && req.headers.host && !req.headers.host.includes('localhost')) {
-                // On production, show https://<shortId>
-                shortUrl = 'https://' + url.shortId;
+              if (req && req.headers && req.headers.host) {
+                // Use the current domain (works for both localhost and production)
+                shortUrl = (req.headers.host.includes('localhost') ? 'http://' : 'https://') + 
+                          req.headers.host + '/url/' + url.shortId;
               } else {
-                // On localhost, show http://localhost:8001/url/<shortId>
-                shortUrl = 'http://localhost:8001/url/' + url.shortId;
+                // Fallback to the production URL
+                shortUrl = 'https://making-short-urls.vercel.app/url/' + url.shortId;
               }
             %>
             <a href="<%= shortUrl %>" target="_blank" style="color:#667eea; text-decoration:underline;">
